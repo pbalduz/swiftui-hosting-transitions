@@ -1,4 +1,4 @@
-#swiftui-hosting-transitions
+# swiftui-hosting-transitions
 
 `SwiftUI` enables to perform smooth transitions between views using [`matchedGeometryEffect`](https://developer.apple.com/documentation/swiftui/view/matchedgeometryeffect(id:in:properties:anchor:issource:)) view modifier but what happens when the views are contained in `UIHostingControllers`? 
 
