@@ -91,6 +91,11 @@ let vc = SecondViewController(state: state)
 navigationController?.pushViewController(vc, animated: true)
 ```
 
+### Demo
+
+![matched-transition-demo](https://github.com/pbalduz/swiftui-hosting-transitions/assets/9513953/489e9f20-297e-4eca-8ba6-ea07c9dd7f51)
+
+
 ## What's next
 * Currently, only push navigation is supported and modal presentation is still to be implemented.
 * Interactive transitions?
