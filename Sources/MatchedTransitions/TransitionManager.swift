@@ -40,29 +40,28 @@ class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning {
     ) {
         let containerView = transitionContext.containerView
 
-        let cancellable = state.$destinations
-            .filter { [weak self] destinations in
-                guard let self else { return false }
-                return self.state.sources.allSatisfy { source in
-                    destinations.keys.contains(source.key)
-                }
-            }
-            .first()
-            .sink { [weak self] _ in
-                self?.state.startPresentation()
-            }
-
-        containerView.addSubview(toViewController.view)
-        toViewController.view.layoutIfNeeded()
-        toViewController.view.alpha = 0
-
         let transitionViewController = UIHostingController(
             rootView: TransitionView(state: state)
         )
-        containerView.addSubview(transitionViewController.view)
-        transitionViewController.view.frame = containerView.bounds
-        transitionViewController.view.backgroundColor = .clear
-        transitionViewController.view.alpha = 1
+
+        let cancellable = state.$destinations
+            .dropFirst()
+            .filter { [weak self] destinations in
+                guard let self else { return false }
+                return destinations.allSatisfy { destination in
+                    self.state.sources.keys.contains(destination.key)
+                }
+            }
+            .sink { [weak self] destinations in
+                self?.state.startPresentation()
+                containerView.addSubview(transitionViewController.view)
+                transitionViewController.view.frame = containerView.bounds
+                transitionViewController.view.backgroundColor = .clear
+                transitionViewController.view.alpha = 1
+            }
+
+        containerView.addSubview(toViewController.view)
+        toViewController.view.alpha = 0
 
         let animator = UIViewPropertyAnimator(duration: state.animationDuration, curve: .easeInOut)
         animator.addCompletion { [weak self] position in
@@ -100,6 +99,7 @@ class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning {
         let animator = UIViewPropertyAnimator(duration: state.animationDuration, curve: .easeInOut)
         animator.addCompletion { [weak self] position in
             self?.state.stopAnimation()
+            self?.state.clearState()
             transitionViewController.view.removeFromSuperview()
             transitionContext.completeTransition(position == .end)
         }

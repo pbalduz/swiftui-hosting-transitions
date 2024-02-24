@@ -13,7 +13,11 @@ public class MatchedGeometryState: ObservableObject {
     let animationDuration: TimeInterval
 
     var sourcesArray: [(id: AnyHashable, view: AnyView, frame: CGRect)] {
-        sources.map { (id: $0.key, view: $0.value.0, frame: $0.value.1) }
+        sources
+            .filter { source in
+                destinations.keys.contains(where: { source.key  == $0 })
+            }
+            .map { (id: $0.key, view: $0.value.0, frame: $0.value.1) }
     }
 
     public init(animationDuration: TimeInterval = 0.6) {
@@ -39,5 +43,9 @@ public class MatchedGeometryState: ObservableObject {
 
     func stopAnimation() {
         self.animating = false
+    }
+
+    func clearState() {
+        self.destinations = [:]
     }
 }

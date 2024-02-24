@@ -34,7 +34,7 @@ struct MatchedGeometryModifier<V: View>: ViewModifier {
                         }
                 }
             )
-            .opacity(state.animating ? 0 : 1)
+            .opacity(state.animating && state.destinations.keys.contains(id) ? 0 : 1)
     }
 }
 
