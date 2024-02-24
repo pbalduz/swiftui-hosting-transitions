@@ -1,11 +1,11 @@
 import Foundation
 import SwiftUI
 
-public class MatchedHostingController<Content: View>: UIHostingController<MatchedContainerView<Content>> {
+open class MatchedHostingController<Content: View>: UIHostingController<MatchedContainerView<Content>> {
     private let state: MatchedGeometryState
     private lazy var transitionManager = TransitionManager(state: state)
 
-    init(
+    public init(
         rootView: Content,
         state: MatchedGeometryState
     ) {
@@ -18,12 +18,12 @@ public class MatchedHostingController<Content: View>: UIHostingController<Matche
         )
     }
 
-    @MainActor required dynamic init?(coder aDecoder: NSCoder) {
+    @MainActor required dynamic public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override public func viewDidLoad() {
-        super.viewDidLoad()
+    override open func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         navigationController?.delegate = transitionManager
     }
 }
