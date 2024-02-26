@@ -1,5 +1,8 @@
 # swiftui-hosting-transitions
 
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fpbalduz%2Fswiftui-hosting-transitions%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/pbalduz/swiftui-hosting-transitions)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fpbalduz%2Fswiftui-hosting-transitions%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/pbalduz/swiftui-hosting-transitions)
+
 `SwiftUI` enables to perform smooth transitions between views using [`matchedGeometryEffect`](https://developer.apple.com/documentation/swiftui/view/matchedgeometryeffect(id:in:properties:anchor:issource:)) view modifier but what happens when the views are contained in `UIHostingControllers`? 
 
 When transitioning `UIKit` projects to `SwiftUI`, many developers initially wrap their views in `UIHostingController`s while keeping navigation in `UIKit`. However, this approach limits the ability to implement custom transitions between the `SwiftUI` views. This library addresses this challenge by providing a straightforward solution for executing custom matched geometry transitions specifically designed for `UIHostingController`s.
